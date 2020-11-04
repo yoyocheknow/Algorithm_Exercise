@@ -29,9 +29,33 @@ public class ThreeSum {
         return new ArrayList<>(result);
 
     }
+
+    public static List<List<Integer>> threeSum1(int[] nums) {
+        Set<List<Integer>> result =new HashSet<>();
+        Arrays.sort(nums);
+
+        for(int i=0;i<nums.length;i++){
+            int left = i+1;
+            int right =nums.length-1;
+
+            while(left<right){
+                if(nums[i]+nums[left]+nums[right]==0){
+                    result.add(Arrays.asList(nums[i],nums[left],nums[right]));
+                    left++;
+                }
+                else if(nums[i]+nums[left]+nums[right]<0){
+                   left++;
+                }else{
+                    right--;
+                }
+            }
+        }
+        return new ArrayList<>(result);
+
+    }
     public static void main(String[] args){
         int[] nums = new int[]{-1,0,1,2,-1,-4};
-        List<List<Integer>> result = threeSum(nums);
+        List<List<Integer>> result = threeSum1(nums);
         result.stream().forEach(System.out::println);
     }
 }
