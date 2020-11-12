@@ -1,4 +1,4 @@
-package List;
+package com.yoyocheknow.java.leetcode.Array;
 
 /**
  * 容器接雨水问题

@@ -1,4 +1,4 @@
-package common_algorithm;
+package com.yoyocheknow.java.common_algorithm;
 
 import java.util.*;
 

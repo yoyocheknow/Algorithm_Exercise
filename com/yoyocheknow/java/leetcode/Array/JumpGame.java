@@ -1,7 +1,4 @@
-package List;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.yoyocheknow.java.leetcode.Array;
 
 /**
  * 数组跳跃问题

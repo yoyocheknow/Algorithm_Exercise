@@ -1,4 +1,4 @@
-package List;
+package com.yoyocheknow.java.leetcode.Array;
 
 /**
  * 两个链表之和
