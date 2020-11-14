@@ -18,11 +18,6 @@ public class Minimum_Number_of_Arrows_to_Burst_Balloons {
                 return a[0]-b[0];
             }
         });
-
-        for(int i=0;i<points.length;i++){
-            System.out.println(Arrays.toString(points[i]));
-        }
-
         int [] intsec = points[0];
         int result=1;
         for(int i=1;i<points.length;i++){
