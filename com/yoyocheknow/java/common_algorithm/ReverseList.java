@@ -1,5 +1,6 @@
 package common_algorithm;
 
+import dataStructure.ListNode;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 /**
@@ -8,29 +9,6 @@ import org.omg.Messaging.SYNC_WITH_TRANSPORT;
  * @author zhihua on 2020/11/15
  */
 public class ReverseList {
-    public static class ListNode {
-        int value;
-        ListNode next;
-
-        public ListNode(int value){
-            this.value=value;
-        }
-        public void setNext(ListNode next) {
-            this.next = next;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public ListNode getNext() {
-            return next;
-        }
-    }
 
     public static ListNode reverseList(ListNode head){
         ListNode pre=null;
@@ -53,7 +31,7 @@ public class ReverseList {
 
         ListNode newHead =reverseList(node1);
         while (newHead!=null){
-            System.out.println(newHead.value);
+            System.out.println(newHead.getValue());
             newHead=newHead.next;
         }
 
