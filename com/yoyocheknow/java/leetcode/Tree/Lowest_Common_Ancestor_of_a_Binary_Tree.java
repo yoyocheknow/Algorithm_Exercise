@@ -36,6 +36,9 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         }
         return resultNode;
     }
+    //前序遍历，找到目标节点的路径。
+    //path存放路径，result存放结果，防止在递归的时候，把正常的路径节点remove掉。
+    //find表示一旦找到目标节点，就返回。停止继续遍历。
     public void preorder(TreeNode root, TreeNode target,List<TreeNode> result,List<TreeNode> path,boolean find){
         if(root==null || find){
             return;
