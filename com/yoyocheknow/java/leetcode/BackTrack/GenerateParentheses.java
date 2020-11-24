@@ -14,7 +14,8 @@ public class GenerateParentheses {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         List<String> s = new ArrayList<>();
-        backTrack2(result,n,"",0,0);
+        //backTrack2(result,n,"",0,0);
+        backTrack(result,n,s);
         return result;
     }
 
