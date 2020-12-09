@@ -50,17 +50,16 @@ public class LRUCache {
     }
 
     public static void main(String[] args){
-        LRUCache lRUCache = new LRUCache(2);
-        System.out.println(lRUCache.get(2));
-        lRUCache.put(2,6);
-        System.out.println(lRUCache.get(1));
-
-        lRUCache.put(1, 5);
+        LRUCache lRUCache = new LRUCache(3);
+        lRUCache.put(2,2);
+        lRUCache.put(1, 1);
         System.out.println(lRUCache.toString());
-        lRUCache.put(1, 2);
-        System.out.println(lRUCache.get(1));
+        lRUCache.put(3, 3);
         System.out.println(lRUCache.toString());
-        System.out.println(lRUCache.get(2));
+        lRUCache.put(4, 4);
+        System.out.println(lRUCache.toString());
+        lRUCache.get(1);
+        System.out.println(lRUCache.toString());
     }
 
     @Override
