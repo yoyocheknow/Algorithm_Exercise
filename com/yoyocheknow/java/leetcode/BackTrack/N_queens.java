@@ -22,17 +22,17 @@ public class N_queens {
 
     public void backTrack(List<List<String>> result,List<List<String>> temp ,Map<Integer, Integer> queens,int row,int n){
         if(row==n){
-            result.addAll(buildResult(temp));
+            result.add(buildResult(temp));
             return;
         }
         for(int col=0;col<n;col++){
             if(isValid(row,col,queens)){
                 for(int i=0;i<col;i++){
-                    temp.get(row).add("*");
+                    temp.get(row).add(".");
                 }
                 temp.get(row).add("Q");
                 for(int j=0;j<n-col-1;j++){
-                    temp.get(row).add("*");
+                    temp.get(row).add(".");
                 }
                 queens.put(row,col);
                 backTrack(result,temp,queens,row+1,n);
@@ -43,10 +43,16 @@ public class N_queens {
         }
     }
     //复制结果list
-    public List<List<String>> buildResult(List<List<String>> temp){
-        List<List<String>> result=new ArrayList<>();
+    public List<String> buildResult(List<List<String>> temp){
+        List<String> result=new ArrayList<>();
+
+
         for(int i=0;i<temp.size();i++){
-            result.add(new ArrayList<>(temp.get(i)));
+            StringBuilder row =new StringBuilder();
+            for(int j=0;j<temp.get(i).size();j++){
+                row.append(temp.get(i).get(j));
+            }
+            result.add(row.toString());
         }
         return result;
     }
