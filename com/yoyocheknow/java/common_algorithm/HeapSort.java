@@ -24,7 +24,7 @@ public class HeapSort {
             adjustHeap(i,array.length);
         }
     }
-
+    //调整大顶堆
     public void adjustHeap(int root,int size){
         int left = leftChild(root);
         int right = rightChild(root);
