@@ -9,18 +9,11 @@ import java.util.concurrent.CompletableFuture;
  */
 public class TestJava {
     public static void main(String[] args){
-        HashMap map = new HashMap(4);
-        map.put(1,1);
-        map.put(2,2);
-        map.put(3,3);
-        map.put(4,4);
-        map.put(5,5);
-        map.put(6,6);
 
-        LinkedHashMap linkedHashMap = new LinkedHashMap<>();
-        CompletableFuture.supplyAsync(()->{
-            System.out.print("new thread");
-            return "11";});
+        String s3 = new String("12")+new String("34");
+        s3.intern();
+        String s4 = "1234";
+        System.out.println(s3 == s4);//true
 
     }
 }
