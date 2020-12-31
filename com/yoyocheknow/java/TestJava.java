@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * java SE Test
@@ -10,10 +11,8 @@ import java.util.concurrent.CompletableFuture;
 public class TestJava {
     public static void main(String[] args){
 
-        String s3 = new String("12")+new String("34");
-        s3.intern();
-        String s4 = "1234";
-        System.out.println(s3 == s4);//true
-
+        ConcurrentHashMap concurrentHashMap =new ConcurrentHashMap<>();
+        concurrentHashMap.put(null,new Object());
+        System.out.println(concurrentHashMap.containsKey(null));
     }
 }
