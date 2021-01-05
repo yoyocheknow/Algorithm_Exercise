@@ -8,11 +8,11 @@ import common_algorithm.ReverseList;
  * @author zhihua on 2020/11/15
  */
 public class ListNode {
-    public int value;
+    public int val;
     public ListNode next;
 
-    public ListNode(int value){
-        this.value=value;
+    public ListNode(int val){
+        this.val=val;
     }
 
     public ListNode() {
@@ -23,12 +23,12 @@ public class ListNode {
         this.next = next;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setVal(int val) {
+        this.val = val;
     }
 
-    public int getValue() {
-        return value;
+    public int getVal() {
+        return val;
     }
 
     public ListNode getNext() {

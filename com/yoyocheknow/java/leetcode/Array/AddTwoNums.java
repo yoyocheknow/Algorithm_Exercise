@@ -1,4 +1,6 @@
-package com.yoyocheknow.java.leetcode.Array;
+package leetcode.Array;
+
+import dataStructure.ListNode;
 
 /**
  * 两个链表之和
@@ -7,18 +9,7 @@ package com.yoyocheknow.java.leetcode.Array;
  */
 public class AddTwoNums {
 
-    /**
-     * Definition for singly-linked list.
-     * */
-      public static class ListNode {
-          int val;
-          ListNode next;
-          ListNode() {}
-          ListNode(int val) { this.val = val; }
-          ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-     }
-
-    public  ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
           ListNode result=new ListNode();
           ListNode resultHead = result;
           int addFlag=0;

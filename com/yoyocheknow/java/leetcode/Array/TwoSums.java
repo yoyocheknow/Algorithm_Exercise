@@ -1,4 +1,4 @@
-package com.yoyocheknow.java.leetcode.Array;
+package leetcode.Array;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -31,7 +31,7 @@ public class ReverseList {
 
         ListNode newHead =reverseList(node1);
         while (newHead!=null){
-            System.out.println(newHead.getValue());
+            System.out.println(newHead.getVal());
             newHead=newHead.next;
         }
 

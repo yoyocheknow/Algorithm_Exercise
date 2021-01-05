@@ -1,4 +1,4 @@
-package com.yoyocheknow.java.leetcode.Array;
+package leetcode.Array;
 
 /**
  * 求两个整数数组中间值

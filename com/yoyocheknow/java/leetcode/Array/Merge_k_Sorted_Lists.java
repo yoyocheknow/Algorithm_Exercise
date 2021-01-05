@@ -27,7 +27,7 @@ public class Merge_k_Sorted_Lists {
         ListNode dummy = new ListNode();
         ListNode tail = dummy;
         while(l1!=null&& l2!=null){
-            if(l1.value<l2.value){
+            if(l1.val<l2.val){
                 tail.next=l1;
                 l1=l1.next;
             }else{
@@ -71,7 +71,7 @@ public class Merge_k_Sorted_Lists {
         ListNode[] ls = new ListNode[]{node1,node4,node7};
         ListNode result = new Merge_k_Sorted_Lists().mergeKLists(ls);
         while (result!=null){
-            System.out.println(result.value);
+            System.out.println(result.val);
             result=result.next;
         }
     }

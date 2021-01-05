@@ -81,7 +81,7 @@ public class Reverse_Nodes_in_kGroup {
         node4.next=node5;
         ListNode result = new Reverse_Nodes_in_kGroup().reverseKGroup(node1,2);
         while (result!=null){
-            System.out.println(result.value);
+            System.out.println(result.val);
             result=result.next;
         }
     }

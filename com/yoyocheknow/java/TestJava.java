@@ -11,8 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TestJava {
     public static void main(String[] args){
 
-        ConcurrentHashMap concurrentHashMap =new ConcurrentHashMap<>();
-        concurrentHashMap.put(null,new Object());
-        System.out.println(concurrentHashMap.containsKey(null));
+        Integer a = new Integer(5);
+        Integer b = new Integer(5);
+        System.out.println(a==b);
+        Integer i = 200;
+        Integer j = 200;
+        System.out.print(i == j);
     }
 }
