@@ -52,16 +52,35 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         preorder(root.right,target,result,path,find);
         path.remove(path.size()-1);
     }
+
+
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+
+        //如果p<root && q<root ,那么p，q的共同祖先一定在root左子树中
+        if (root.val > p.val && root.val > q.val) {
+            return lowestCommonAncestor1(root.left, p, q);
+        }
+        //如果p>root && q>root ,那么p，q的共同祖先一定在root右子树中
+        if (root.val < p.val && root.val < q.val) {
+            return lowestCommonAncestor1(root.right, p, q);
+        }
+        //如果p ，q 在root两边，那么公共祖先一定是root
+        return root;
+
+
+    }
+
+
     public static  void  main(String[] args){
-        TreeNode root1 =new TreeNode(3);
-        TreeNode root2 =new TreeNode(5);
-        TreeNode root3 =new TreeNode(1);
-        TreeNode root4 =new TreeNode(6);
-        TreeNode root5 =new TreeNode(2);
-        TreeNode root6 =new TreeNode(0);
-        TreeNode root7 =new TreeNode(8);
-        TreeNode root8 =new TreeNode(7);
-        TreeNode root9 =new TreeNode(4);
+        TreeNode root1 =new TreeNode(6);
+        TreeNode root2 =new TreeNode(2);
+        TreeNode root3 =new TreeNode(8);
+        TreeNode root4 =new TreeNode(0);
+        TreeNode root5 =new TreeNode(4);
+        TreeNode root6 =new TreeNode(7);
+        TreeNode root7 =new TreeNode(9);
+        TreeNode root8 =new TreeNode(3);
+        TreeNode root9 =new TreeNode(5);
         root1.left=root2;
         root1.right=root3;
         root2.left=root4;
@@ -71,6 +90,6 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         root5.left=root8;
         root5.right=root9;
         Lowest_Common_Ancestor_of_a_Binary_Tree l= new Lowest_Common_Ancestor_of_a_Binary_Tree();
-        System.out.println(l.lowestCommonAncestor(root1,root9,root7).val);
+        System.out.println(l.lowestCommonAncestor1(root1,root2,root8).val);
     }
 }
