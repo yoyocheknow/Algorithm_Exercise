@@ -64,7 +64,7 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         if (root.val < p.val && root.val < q.val) {
             return lowestCommonAncestor1(root.right, p, q);
         }
-        //如果p ，q 在root两边，那么公共祖先一定是root
+        //如果p ，q 在root两边，或者 p / q是其中一个root，那么公共祖先一定是root
         return root;
 
 
