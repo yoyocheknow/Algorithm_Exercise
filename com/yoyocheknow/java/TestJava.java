@@ -38,8 +38,13 @@ public class TestJava {
         return max;
     }
     public static void main(String[] args){
+        ThreadLocal local = new ThreadLocal();
+        ThreadLocal local1 = new ThreadLocal();
+        local.set("111");
 
-       System.out.println(new TestJava().findMax("qsaasiaadaa",0));
+        local1.set("112");
+        System.out.println(local.get());
+        System.out.println(local1.get());
         //System.out.println(new TestJava().findMax("qqqq"));
     }
 }
