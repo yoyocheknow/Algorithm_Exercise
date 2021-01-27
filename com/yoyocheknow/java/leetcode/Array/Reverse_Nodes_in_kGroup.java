@@ -2,6 +2,7 @@ package leetcode.Array;
 
 import dataStructure.ListNode;
 
+
 /**
  * 反转链表中的K组节点
  *
@@ -9,6 +10,59 @@ import dataStructure.ListNode;
  */
 public class Reverse_Nodes_in_kGroup {
     public ListNode reverseKGroup(ListNode head, int k) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        //定义一个假头节点
+        ListNode dummy = new ListNode(0);
+        //dummy->1->2->3->4->5
+        dummy.next=head;
+        //pre 每次指向要翻转链表头节点的上一个节点。end指向每次翻转链表的尾节点
+        ListNode pre = dummy;
+        ListNode end = dummy;
+        while (end.next!=null){
+            //循环k次，找到要翻转链表的末尾。
+            //dummy->1->2->3->4->5 ,若k=2,循环两次，此时end=2
+            for(int i=0;i<k && end!=null ;i++){
+                end = end.next;
+            }
+            //如果end==null,说明已经到末尾了，不需要翻转了
+            if(end==null){
+                break;
+            }
+            //记录end.next，方便后面链接
+            ListNode next = end.next;
+            //断开链表
+            end.next=null;
+            //记录下要翻转链表的头节点
+            ListNode start = pre.next;
+            //进行翻转，pre.next=翻转后的头节点
+            pre.next=reverse(start);
+            //翻转后的链表头节点到了最后，然后把后面的链表链接起来
+            start.next = next;
+            //翻转完成后，pre节点=上面翻转后的尾节点
+            pre=start;
+            //end节点也是，=上面翻转后的尾节点
+            end=start;
+        }
+        return dummy.next;
+    }
+
+    public ListNode reverse(ListNode head){
+        if(head==null){
+            return null;
+        }
+        ListNode pre = null;
+        ListNode cur=head;
+        while(cur!=null){
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre=cur;
+            cur=next;
+        }
+        return pre;
+    }
+    public ListNode reverseKGroup1(ListNode head, int k) {
         //newHead 记录第一个k翻转后的头部
         ListNode newHead = head;
         int n=k;
