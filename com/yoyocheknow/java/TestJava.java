@@ -1,5 +1,6 @@
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import dataStructure.TreeNode;
+
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,32 +11,34 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class TestJava {
 
-    public int findMax(String s,int max){
-        if(s.length()==1){
-            return 1;
+    public List<Integer> rightSideView(TreeNode root){
+        List<Integer> result = new ArrayList<>();
+        List<List<Integer>> order = new ArrayList<>();
+        if(root==null){
+            return result;
         }
-
-        for(int i=0;i<s.length()-1;i++){
-            max = isHuiwen(s,i,i,max);
-            max = isHuiwen(s,i,i+1,max);
-        }
-        return max;
-
-    }
-
-    public int isHuiwen(String s,int low,int high,int max){
-        while(low>=0 && high<s.length()){
-            if(s.charAt(low)==s.charAt(high)){
-                if(high-low+1>max){
-                    max = high-low+1;
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            List<Integer> layer = new ArrayList<>();
+            int ordersize = queue.size();
+            for(int i=0;i<ordersize;i++){
+                TreeNode current = queue.poll();
+                layer.add(current.val);
+                if(current.left!=null){
+                    queue.add(current.left);
                 }
-                low--;
-                high++;
-            }else{
-                return max;
+                if(current.right!=null){
+                    queue.add(current.right);
+                }
             }
+            order.add(layer);
         }
-        return max;
+        for(int i=0;i<order.size();i++){
+            int end = order.get(i).size();
+            result.add(order.get(i).get(end-1));
+        }
+        return result;
     }
     public static void main(String[] args){
         ThreadLocal local = new ThreadLocal();
