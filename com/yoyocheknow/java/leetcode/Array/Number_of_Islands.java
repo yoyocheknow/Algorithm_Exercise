@@ -57,9 +57,9 @@ public class Number_of_Islands {
         for(int r=0;r<row;r++){
             for(int c=0;c<col;c++){
                 Point point = new Point(r, c);
-                if(grid[r][c]=='1' && !visit.contains(point)){
+                if(grid[r][c]=='1' && !this.visit.contains(point)){
                     islands++;
-                    dfs(grid,point,visit);
+                    dfs(grid,point);
                 }
             }
         }
@@ -67,22 +67,35 @@ public class Number_of_Islands {
 
     }
 
-    public void dfs(char[][] grid,Point p,Set<Point>visit){
-        int r =p.x;
-        int c =p.y;
-        if(isValid(r,c,grid)){
-
-            int [][] directions = new int[][]{{0,-1},{0,-1},{1,0},{-1,0}};
-            for(int i=0;i<directions.length;i++){
-                r = r+directions[i][0];
-                c = c +directions[i][1];
-                Point p1 = new Point(r,c);
+    public void dfs(char[][] grid,Point p){
+        if(isValid(p.x-1, p.y, grid)) {
+            Point p1 = new Point(p.x-1,p.y);
+            if(!visit.contains(p1)) {
                 visit.add(p1);
-                dfs(grid,p1,visit);
+                dfs(grid,p1);
             }
         }
-
-
+        if(isValid(p.x+1, p.y, grid)) {
+            Point p1 = new Point(p.x+1,p.y);
+            if(!visit.contains(p1)) {
+                visit.add(p1);
+                dfs(grid,p1);
+            }
+        }
+        if(isValid(p.x, p.y+1, grid)) {
+            Point p1 = new Point(p.x,p.y+1);
+            if(!visit.contains(p1)) {
+                visit.add(p1);
+                dfs(grid,p1);
+            }
+        }
+        if(isValid(p.x, p.y-1, grid)) {
+            Point p1 = new Point(p.x,p.y-1);
+            if(!visit.contains(p1)) {
+                visit.add(p1);
+                dfs(grid,p1);
+            }
+        }
     }
 
     boolean isValid(int x, int y, char[][] grid) {
