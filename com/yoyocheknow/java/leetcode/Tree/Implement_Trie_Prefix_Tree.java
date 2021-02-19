@@ -1,4 +1,4 @@
-package leetcode.Array;
+package leetcode.Tree;
 
 /**
  * 实现一个字符串前缀树
