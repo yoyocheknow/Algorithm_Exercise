@@ -1,169 +1,86 @@
 package leetcode.stack;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
- * 实现一个简单的计算器
- *
- * @author zhihua on 2021/2/22
+ * 设计一个简单计算器
+ * 前提：只有加减运算，有括号
+ * 1，将字符串逆序放到栈中。
+ * 如果正序操作比如（7-8+9） 放入栈的形式为： [(,7,-,8,+,9]
+ * 当遍历到')' 时，开始弹出元素计算： pop 9,pop +,pop 8, evaluate 9+8 =17 ,push 17
+ * 目前栈元素为：[(,7,-,17]
+ * 最后再次弹出计算： pop 17,pop - ,pop 7,evaluate 17-7 =10
+ * 结果明显不对。所以我们采取逆序的方式放入。
+ * 此次放入栈的形式为 [),9,+,8,-,7]
+ * 当遍历到 '('时，开始弹出元素计算：pop 7,pop -, pop 8, evaluate 7-8=-1,push -1
+ * 目前栈元素为：[),9,+,-1]
+ * 最后再次弹出计算：pop -1,pop +,pop 9 ,evaluate -1+8=7,push 7
+ * 得到最后结果
+ * @author zhihua on 2021/2/23
  */
+
 public class Basic_Calculator {
     /**
-     * 先根据表达式转化成逆波兰表达式，然后再根据逆波兰表达式计算即可。
-     * @param s
+     * 计算栈存放的数据
+     * @param stack
      * @return
      */
-    public int calculate(String s) {
-        Deque<String> stack1 = new ArrayDeque<>();
-        Deque<String> stack2= new ArrayDeque<>();
-        RPN(stack1,stack2,s);
-
-        for(String c :stack2){
-            System.out.print(c + " ");
+    public int evaluateExpr(Deque stack){
+        int res = 0;
+        if(!stack.isEmpty()){
+            res = (int) stack.pop();
         }
-        System.out.println();
-        /**
-         * 计算逆波兰运算符
-         * 借助一个辅助栈，从s2中左边弹出元素放入help辅助栈内。
-         * 如果是数字则直接放入help内
-         * 如果是运算符，则使用help的栈顶两个元素 按照此运算符进行运算。然后将结果压入help栈内。
-         * 依次类推，直到遍历完整个s2栈。
-         * 结果就是help的栈顶元素。
-         */
-        Deque<Integer> help = new ArrayDeque<>();
-        while (!stack2.isEmpty()){
-           if(stack2.peekLast().equals("+")){
-               int a = help.pop();
-               int b = help.pop();
-               a=a+b;
-               stack2.pollLast();
-               help.push(a);
-           }
-           else if(stack2.peekLast().equals("-")){
-               int a = help.pop();
-               int b = help.pop();
-               a=b-a;
-               stack2.pollLast();
-               help.push(a);
-           }
-            else if(stack2.peekLast().equals("*")){
-               int a = help.pop();
-               int b = help.pop();
-               a=a*b;
-               stack2.pollLast();
-               help.push(a);
-            }
-            else if(stack2.peekLast().equals("/")){
-               int a = help.pop();
-               int b = help.pop();
-               a=b/a;
-               stack2.pollLast();
-               help.push(a);
-            }
-            else{
-               help.push(Integer.valueOf(stack2.pollLast()));
-            }
-        }
-        return help.peek();
-    }
-
-    /**
-     * 栈s1用于临时存储运算符,此运算符在栈内遵循越往栈顶优先级越高的原则
-     * 栈s2用于输入逆波兰式
-     * 总体思路：s1暂存运算符，但是要保证越到栈顶优先级越高，然后往s2中放入数字元素
-     * 如果碰到遍历的运算符 优先级小于 s1的栈顶运算符优先级，那么就把s1的这些栈顶运算符号搬到s2中。
-     * 如果碰见'(',')',先把左括号放置到s1中，等碰到右括号时，再把s1 的栈顶暂存的运算符 依次搬到s2中。
-     * @param stack1
-     * @param stack2
-     * @param s
-     */
-    public void RPN(Deque<String> stack1,Deque<String> stack2,String s){
-        char[] chars = s.toCharArray();
-        //以下操作都是为了避免出现123+234 这种多位数字的情况，所以要先做好预处理
-        List<String> sb = new ArrayList<>();
-        sb.add(String.valueOf(chars[0]));
-        for(int i=1;i<chars.length;i++){
-            //如果上一个字符为数字，且当前也为数字,计算出一个新的数字并放到sb里面
-            if(Character.isDigit(chars[i-1]) &&  Character.isDigit(chars[i])){
-                int last = Integer.valueOf(sb.get(sb.size()-1));
-                last =last*10;
-                last = last + chars[i]-'0';
-                sb.remove(sb.size()-1);
-                sb.add(String.valueOf(last));
+        //如果栈顶元素不为')'
+        while(!stack.isEmpty() && !((char)stack.peek() == ')')){
+            char sign = (char)stack.pop();
+            if(sign =='+'){
+                res += (int)stack.pop();
             }else{
-                sb.add(String.valueOf(chars[i]));
+                res -= (int)stack.pop();
             }
         }
-        //# 表示最低优先级 ，减少stack1的判空
-        stack1.push("#");
-        for(int i=0;i<sb.size();i++){
-            String c = sb.get(i);
-            switch (c){
-                //忽略空格
-                case " ": break;
-                //遇'(' 直接入栈1
-                case "(" :
-                    stack1.push(c); break;
-                //遇见'(',则将距离栈s1栈顶的最近的'('之间的运算符，逐个出栈，依次压入栈s2，此时抛弃'('；
-                case ")":
-                    while (!stack1.peek().equals("(")){
-                        stack2.push(stack1.pop());
-                    }
-                    stack1.pop();
-                    break;
-                //遇见以下运算符，分两种情况讨论：
-                //1. 若当前栈s1的栈顶元素是'('，则将x直接压入栈s1；
-                //2. 若当前栈s1的栈顶元素不为'('，则将x与栈s1的栈顶元素比较，
-                //若x的优先级大于栈s1栈顶运算符优先级，则将x直接压入栈s1。
-                //否则，将栈s1的栈顶运算符弹出，压入栈s2中，直到栈s1的栈顶运算符优先级别低于x的优先级，或栈s2的栈顶运算符为'('，此时再则将x压入栈s1
-                case "+":
-                case "-":
-                case "*":
-                case "/":
-                    if(stack1.peek().equals("(")){
-                        stack1.push(c);
-                    }
-                    else{
-                        if(getPriority(c)>getPriority(stack1.peek())){
-                            stack1.push(c);
-                        }else{
-                            while (getPriority(stack1.peek())>=getPriority(c)|| stack2.peek().equals("(")){
-                                stack2.push(stack1.pop());
-                            }
-
-                            stack1.push(c);
-                        }
-                    }
-                    break;
-                default:
-                    stack2.push(c);
-                    break;
-
-            }
-        }
-        while (!stack1.isEmpty() && !stack1.peek().equals("#")){
-            stack2.push(stack1.pop());
-        }
+        return res;
     }
 
-    public int getPriority(String c){
-        switch (c){
-            case "#":
-                return 0;
-            case "+":
-                return 1;
-            case "-":
-                return 1;
-            case "*":
-                return 2;
-            case "/":
-                return 2;
-            default:return 0;
+    public int calculate(String s) {
+        int operand = 0;
+        int n =0;
+        s = s.trim();
+        if (s.charAt(0) == '-')
+            s = "0" + s;
+
+        Deque stack = new ArrayDeque();
+        for(int i =s.length()-1;i>=0;i--){
+            char ch = s.charAt(i);
+            //防止出现 123+234这种情况，因为是单个遍历字符。
+            if(Character.isDigit(ch)){
+                operand = (int) Math.pow(10,n)*(int)(ch-'0')+operand;
+                n+=1;
+            }
+            else if(ch != ' '){
+                if(n!=0){
+                    //如果当前字符为运算符，那么就把上次计算的数字push到栈中。幂指数归零
+                    stack.push(operand);
+                    n=0;
+                    operand=0;
+                }
+                if(ch == '('){
+                    int res = evaluateExpr(stack);
+                    stack.pop();
+                    stack.push(res);
+                }else{
+                    stack.push(ch);
+                }
+            }
         }
+        if(n!=0){
+            stack.push(operand);
+        }
+        return evaluateExpr(stack);
     }
 
     public static void main(String[] args){
-
-        System.out.println(new Basic_Calculator().calculate("(1+2)*3-(2+4)/3"));
+        System.out.println(new Basic_Calculator().calculate("-2+1"));
     }
 }
