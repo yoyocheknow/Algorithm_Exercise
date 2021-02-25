@@ -166,8 +166,8 @@ public class Basic_Calculator_RPN {
     }
 
     public static void main(String[] args){
-//        String s = "(1+2)*3-(2+4)/3";
-        String s  ="-2+1";
+        String s = "(1+2)*3-(2+4)/3";
+//        String s  ="-2+1";
         System.out.println(new Basic_Calculator_RPN().calculate(s));
     }
 }
