@@ -1,8 +1,10 @@
+package concurrency;
+
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 /**
- * CyclicBarrierTest
+ * concurrency.CyclicBarrierTest
  *
  * @author zhihua on 2021/2/2
  */

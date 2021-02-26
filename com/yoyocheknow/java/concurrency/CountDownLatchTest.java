@@ -1,7 +1,9 @@
+package concurrency;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
- * CountDownLatchTest
+ * concurrency.CountDownLatchTest
  *
  * @author zhihua on 2021/2/2
  */
