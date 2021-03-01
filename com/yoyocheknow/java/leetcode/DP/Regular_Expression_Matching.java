@@ -33,7 +33,87 @@ public class Regular_Expression_Matching {
         }
     }
 
+
+    /**
+     *  动态规划
+     *  dp[i][j] 表示s[0..i] 与p[0..j] 是否匹配
+     *  比如 s='aaac',p='a*c'
+     *  0 代表false，1代表true
+     *  dp p| 0 1 2 3
+     *  ----------------------------
+     *  s  0| 1 0 1 0
+     *     1| 0 1 1 0
+     *     2| 0 0 1 0
+     *     3| 0 0 1 0
+     *     4| 0 0 0 1
+     */
+
+    public boolean isMatch1(String s, String p) {
+        if(s.length()==0 && p.length()==0){
+            return true;
+        }
+        if(p.length()==0){
+            return false;
+        }
+        int m = s.length();
+        int n= p.length();
+        boolean[][]dp = new boolean[m+1][n+1];
+
+        //初始化动态方程
+        dp[0][0]=true;
+        //代表p为空时，dp数组的初始值。p的前0个字符都与s不匹配。
+        for(int i=1;i<=m;i++){
+            dp[i][0]=false;
+        }
+        //代表s为空时，dp数组的初始值
+        for(int j=1;j<=n;j++){
+            char c = p.charAt(j-1);
+            if(Character.isLetter(c)|| c=='.'){
+                dp[0][j]=false;
+            }
+            if(c=='*' && dp[0][j-2]){
+                dp[0][j]=true;
+            }
+        }
+
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                char a = s.charAt(i-1);
+                char b = p.charAt(j-1);
+                //如果s[0..i-1] 与p[0..j-1]匹配，并且 s[i]==p[j] or p[j]=='.' 那么s[0..i] 与p[0..j]匹配
+                if(dp[i-1][j-1] && (a==b ||b=='.')){
+                    dp[i][j]=true;
+                    continue;
+                }
+                //b=='*'的话，有两种可能：
+                //1，将前面的字符匹配零次
+                //2，将前面的字符匹配多次
+                if(b=='*'){
+                    //将前面的字符匹配零次，那么当前字符*，和前面的字符一起消失。只需判断dp[i][j-2]即可
+                    if(dp[i][j-2]){
+                        dp[i][j]=true;
+                        continue;
+                    }
+                    //将前面的字符匹配多次。比如现在的s=aaac,p=a*c
+                    //*应该可以将前面的a匹配两次。既然* 要匹配前面的字符 n次，那么至少说明s[0..i-1]要匹配
+                    //并且，s当前的字符和*的前一个字符要相同，才能保证s[0..i] p[0..j]匹配。
+                    if(dp[i-1][j]&& (a==p.charAt(j-2) || p.charAt(j-2) =='.')){
+                        dp[i][j]=true;
+                        continue;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<dp.length;i++){
+            for(int j=0;j<dp[i].length;j++){
+                System.out.print(dp[i][j] + " ");
+            }
+            System.out.println();
+        }
+        return dp[m][n];
+
+    }
     public static void main(String[] args){
-        System.out.print(new Regular_Expression_Matching().isMatch("aaac","a*c"));
+        System.out.print(new Regular_Expression_Matching().isMatch1("aaac","a*c"));
     }
 }
