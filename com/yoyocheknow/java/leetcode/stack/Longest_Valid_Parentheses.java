@@ -1,4 +1,4 @@
-package leetcode.DP;
+package leetcode.stack;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
