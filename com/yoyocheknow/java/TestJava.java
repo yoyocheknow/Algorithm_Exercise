@@ -3,6 +3,7 @@ import dataStructure.TreeNode;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * java SE Test
@@ -41,13 +42,31 @@ public class TestJava {
         return result;
     }
     public static void main(String[] args){
-        ThreadLocal local = new ThreadLocal();
-        ThreadLocal local1 = new ThreadLocal();
-        local.set("111");
 
-        local1.set("112");
-        System.out.println(local.get());
-        System.out.println(local1.get());
-        //System.out.println(new TestJava().findMax("qqqq"));
+        HashMap<Integer, String> categoryInfoMap = new HashMap();
+        categoryInfoMap.put(4,"1");
+        categoryInfoMap.put(2,"2");
+        categoryInfoMap.put(5,"3");
+        categoryInfoMap.put(1,"4");
+        categoryInfoMap.put(3,"5");
+
+        for(Integer key:categoryInfoMap.keySet()){
+            System.out.println(key+" "+categoryInfoMap.get(key));
+        }
+        System.out.println("---------------------");
+        //categoryInfoMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByKey()));
+        categoryInfoMap = categoryInfoMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+                .collect(
+                        Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (oldVal, newVal) -> oldVal,
+                                LinkedHashMap::new
+                        )
+                );
+
+        for(Integer key:categoryInfoMap.keySet()){
+            System.out.println(key+" "+categoryInfoMap.get(key));
+        }
     }
 }
