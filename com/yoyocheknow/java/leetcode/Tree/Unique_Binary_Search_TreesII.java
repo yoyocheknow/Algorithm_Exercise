@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 构造不同的二叉搜索树
+ * 构造不同的二叉搜索树II
  *
  * @author zhihua on 2020/11/21
  */
@@ -19,8 +19,10 @@ public class Unique_Binary_Search_TreesII {
      * 生成一个结果list，存放结果，List<TreeNode> result。
      * 由于序列是有序的，所以根节点的左边都属于左子树，右边都属于右子树。这些子树节点都存放在list中。
      * 递归遍历生成左子树和右子树。
-     * 左子树不为空时，把所有的右子树的结果存入结果list中，result.add(new TreeNode(array.get(i),null,rightArray.get(k)));
-     * 右子树不为空时，把所有的左子树结果存入结果list中，result.add(new TreeNode(array.get(i),leftArray.get(k),null));
+     * 左子树为空时，那么新生成的root节点的left为null，右子树为rightArray.get(i),分别生成这样新的root节点。
+     * 右子树为空时，那么新生成的root节点的right为null，左子树为leftArray.get(i).分别生成这样新的root节点。
+     * 当左右子树均不为空时，针对当前遍历的节点i，构造新的root节点。这样的组合有leftArray.length * rightArray.length 中。
+     * 分别让leftArray.get(j), rightArray.get(k) 作为左右子节点，构成新的节点。
      */
     public List<TreeNode> generateTrees(int n) {
 
@@ -66,7 +68,7 @@ public class Unique_Binary_Search_TreesII {
 
     public static void main(String[] args){
         Unique_Binary_Search_TreesII u= new Unique_Binary_Search_TreesII();
-        List<TreeNode> result = u.generateTrees(3);
+        List<TreeNode> result = u.generateTrees(4);
         for(int i=0;i<result.size();i++){
             System.out.print(result.get(i).val);
         }
