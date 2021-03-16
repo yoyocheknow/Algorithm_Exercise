@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-
+import java.time.LocalDate;
+import java.util.List;
 /**
  * java SE Test
  *
@@ -12,61 +13,106 @@ import java.util.stream.Collectors;
  */
 public class TestJava {
 
-    public List<Integer> rightSideView(TreeNode root){
-        List<Integer> result = new ArrayList<>();
-        List<List<Integer>> order = new ArrayList<>();
-        if(root==null){
-            return result;
+
+
+    public static class StudentInfo implements Comparable<StudentInfo> {
+
+        //名称
+        private String name;
+
+        //性别 true男 false女
+        private Boolean gender;
+
+        //年龄
+        private Integer age;
+
+        //身高
+        private Double height;
+
+        //出生日期
+        private LocalDate birthday;
+
+        public StudentInfo(String name, Boolean gender, Integer age, Double height, LocalDate birthday){
+            this.name = name;
+            this.gender = gender;
+            this.age = age;
+            this.height = height;
+            this.birthday = birthday;
         }
-        Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.add(root);
-        while(!queue.isEmpty()){
-            List<Integer> layer = new ArrayList<>();
-            int ordersize = queue.size();
-            for(int i=0;i<ordersize;i++){
-                TreeNode current = queue.poll();
-                layer.add(current.val);
-                if(current.left!=null){
-                    queue.add(current.left);
-                }
-                if(current.right!=null){
-                    queue.add(current.right);
-                }
-            }
-            order.add(layer);
+
+        public String toString(){
+            String info = String.format("%s\t\t%s\t\t%s\t\t\t%s\t\t%s",this.name,this.gender.toString(),this.age.toString(),this.height.toString(),birthday.toString());
+            return info;
         }
-        for(int i=0;i<order.size();i++){
-            int end = order.get(i).size();
-            result.add(order.get(i).get(end-1));
+
+        public static void printStudents(List<StudentInfo> studentInfos){
+            System.out.println("[姓名]\t\t[性别]\t\t[年龄]\t\t[身高]\t\t[生日]");
+            System.out.println("----------------------------------------------------------");
+            studentInfos.forEach(s->System.out.println(s.toString()));
+            System.out.println(" ");
         }
-        return result;
+
+        @Override
+        public int compareTo(StudentInfo ob) {
+            return this.age.compareTo(ob.getAge());
+            //return 1;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Boolean getGender() {
+            return gender;
+        }
+
+        public void setGender(Boolean gender) {
+            this.gender = gender;
+        }
+
+        public Integer getAge() {
+            return age;
+        }
+
+        public void setAge(Integer age) {
+            this.age = age;
+        }
+
+        public Double getHeight() {
+            return height;
+        }
+
+        public void setHeight(Double height) {
+            this.height = height;
+        }
+
+        public LocalDate getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(LocalDate birthday) {
+            this.birthday = birthday;
+        }
     }
+
     public static void main(String[] args){
 
-        HashMap<Integer, String> categoryInfoMap = new HashMap();
-        categoryInfoMap.put(4,"1");
-        categoryInfoMap.put(2,"2");
-        categoryInfoMap.put(5,"3");
-        categoryInfoMap.put(1,"4");
-        categoryInfoMap.put(3,"5");
+        //测试数据，请不要纠结数据的严谨性
+        List<StudentInfo> studentList = new ArrayList<>();
+        studentList.add(new StudentInfo("李小明",true,18,1.76,LocalDate.of(2001,3,23)));
+        studentList.add(new StudentInfo("张小丽",false,18,1.61,LocalDate.of(2001,6,3)));
+        studentList.add(new StudentInfo("王大朋",true,19,1.82,LocalDate.of(2000,3,11)));
+        studentList.add(new StudentInfo("陈小跑",false,17,1.67,LocalDate.of(2002,10,18)));
 
-        for(Integer key:categoryInfoMap.keySet()){
-            System.out.println(key+" "+categoryInfoMap.get(key));
-        }
-        System.out.println("---------------------");
-        //categoryInfoMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByKey()));
-        categoryInfoMap = categoryInfoMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (oldVal, newVal) -> oldVal,
-                                LinkedHashMap::new
-                        )
-                );
-
-        for(Integer key:categoryInfoMap.keySet()){
-            System.out.println(key+" "+categoryInfoMap.get(key));
-        }
+        //排序前输出
+        StudentInfo.printStudents(studentList);
+        //按年龄排序(Integer类型)
+        List<StudentInfo> studentsSortName = studentList.stream().sorted(Comparator.comparing(StudentInfo::getAge)).collect(Collectors.toList());
+        //排序后输出
+        StudentInfo.printStudents(studentsSortName);
     }
 }
