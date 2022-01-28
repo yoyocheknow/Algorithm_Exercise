@@ -48,9 +48,48 @@ public class Merge_k_Sorted_Lists {
         }
         return dummy.next;
     }
+    public ListNode mergeKLists1(ListNode[] lists) {
+        if(lists.length==0){
+            return null;
+        }
+        ListNode dummy = new ListNode();
+        ListNode newNode=dummy;
+        for(int i=0;i<lists.length;i++){
+            newNode = mergeTwoListNode(newNode,lists[i]);
+        }
+        return dummy;
+
+
+    }
+    private ListNode mergeTwoListNode(ListNode l1,ListNode l2){
+        ListNode dummy=new ListNode();
+        ListNode r = dummy;
+        while(l1!=null && l2!=null){
+            if(l1.val<l2.val){
+                r.next = l1;
+                l1=l1.next;
+
+            }else{
+                r.next = l2;
+                l2=l2.next;
+            }
+            r=r.next;
+        }
+        while(l1!=null){
+            r.next = l1;
+            l1=l1.next;
+            r=r.next;
+        }
+        while(l2!=null){
+            r.next = l2;
+            l2=l2.next;
+            r=r.next;
+        }
+        return dummy.next;
+    }
 
     public static void main(String[]args){
-        ListNode node1=new ListNode(2);
+        ListNode node1=new ListNode(1);
         ListNode node2=new ListNode(4);
         ListNode node3=new ListNode(5);
         node1.next=node2;
@@ -63,7 +102,7 @@ public class Merge_k_Sorted_Lists {
         node4.next=node5;
         node5.next=node6;
 
-        ListNode node7=new ListNode(-1);
+        ListNode node7=new ListNode(2);
         ListNode node8=new ListNode(6);
 
         node7.next=node8;

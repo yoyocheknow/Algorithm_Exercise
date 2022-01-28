@@ -25,9 +25,33 @@ public class TwoSums {
         return result;
     }
 
+    public static  int[] twoSum1(int[] nums, int target) {
+        int i=0;
+        int length = nums.length;
+        int[] re = new int[2];
+
+        while(i<length){
+            int x = target-nums[i];
+            re[0]=i;
+            int j = i+1;
+            while(j<length){
+                if(x==nums[j]){
+                    re[1]=j;
+                    break;
+                }
+                j++;
+            }
+            if(re[1]!=0){
+                break;
+            }
+            i++;
+
+        }
+        return re;
+    }
     public static void main(String[] args){
-        int[] nums = new int[]{2,7,11,15};
-        int [] result = twoSum(nums,17);
+        int[] nums = new int[]{3,2,4};
+        int [] result = twoSum1(nums,6);
         Arrays.stream(result).forEach(System.out::println);
     }
 }

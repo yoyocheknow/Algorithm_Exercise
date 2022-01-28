@@ -14,8 +14,8 @@ public class GenerateParentheses {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         List<String> s = new ArrayList<>();
-        //backTrack2(result,n,"",0,0);
-        backTrack(result,n,s);
+        backTrack2(result,n,"",1,1);
+//        backTrack(result,n,s);
         return result;
     }
 
@@ -49,7 +49,7 @@ public class GenerateParentheses {
             return;
         }
 
-        if(left<n){
+        if(left<=n){
             backTrack2(result,n,s+"(",left+1,right);
         }
         if(right<left){
@@ -69,6 +69,7 @@ public class GenerateParentheses {
         return count;
     }
     public static void main(String[] args){
+
         System.out.println(new GenerateParentheses().generateParenthesis(3).toString());
     }
 }

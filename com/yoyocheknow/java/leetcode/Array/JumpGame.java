@@ -27,6 +27,23 @@ public class JumpGame {
         }
 
     }
+    public boolean canJump1(int[] nums) {
+        if(nums.length<2){
+            return true;
+        }
+        int max=nums[0];
+
+        for(int i=0;i<nums.length;i++){
+            if(max>=nums.length-1){
+                return true;
+            }
+            if(max<i){
+                return false;
+            }
+            max = Math.max(nums[i]+i,max);
+        }
+        return false;
+    }
 
     public static void main(String[] args){
         int []nums = new int[]{2,3,1,1,4};

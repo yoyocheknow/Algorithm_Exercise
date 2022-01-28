@@ -28,7 +28,7 @@ public class Search_in_Rotated_Sorted_Array {
             //右半边有序
             else{
                 //mid<=target<right 时，在右半边二分查找，否则去左半边
-                if(nums[mid]<=target && target<nums[right]){
+                if(nums[mid]<target && target<=nums[right]){
                     left=mid+1;
                 }else{
                     right=mid-1;
@@ -83,6 +83,6 @@ public class Search_in_Rotated_Sorted_Array {
 
 
     public static void main(String[] args){
-        System.out.print(new Search_in_Rotated_Sorted_Array().search(new int[]{4,5,6,7,0,1,2},0));
+        System.out.print(new Search_in_Rotated_Sorted_Array().search(new int[]{5,1,3},3));
     }
 }

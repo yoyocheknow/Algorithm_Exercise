@@ -21,9 +21,7 @@ public class CombinationSum {
 
     public void backTrack(int start,int target,List<List<Integer>> result,List<Integer>temp,int[] candidates){
         if(getSum(temp)==target){
-            List<Integer> r = new ArrayList<>();
-            r.addAll(temp);
-            result.add(r);
+            result.add(new ArrayList<>(temp));
             return;
         }
         if(getSum(temp)<target){
