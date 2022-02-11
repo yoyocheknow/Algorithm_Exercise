@@ -41,6 +41,6 @@ public class Best_Time_to_Buy_and_Sell_StockIII {
     }
 
     public static void main(String[] args){
-        System.out.println(new Best_Time_to_Buy_and_Sell_StockIII().maxProfit(new int[]{1, 7, 2, 3, 6, 7, 6, 7}));
+        System.out.println(new Best_Time_to_Buy_and_Sell_StockIII().maxProfit(new int[]{3,3,5,0,0,3,1,4}));
     }
 }

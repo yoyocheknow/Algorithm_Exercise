@@ -10,7 +10,18 @@ import java.util.*;
  * @author zhihua on 2020/11/23
  */
 public class Letter_Combinations_of_a_Phone_Number {
-
+    static Map<Character,List<String>> numLetterMap;
+    static{
+        numLetterMap = new HashMap();
+        numLetterMap.put('2',Arrays.asList("a","b","c"));
+        numLetterMap.put('3',Arrays.asList("d","e","f"));
+        numLetterMap.put('4',Arrays.asList("g","h","i"));
+        numLetterMap.put('5',Arrays.asList("j","k","l"));
+        numLetterMap.put('6',Arrays.asList("m","n","o"));
+        numLetterMap.put('7',Arrays.asList("p","q","r","s"));
+        numLetterMap.put('8',Arrays.asList("t","u","v"));
+        numLetterMap.put('9',Arrays.asList("w","x","y","z"));
+    }
     public List<String> letterCombinations(String digits) {
 
         char[] nums = digits.toCharArray();
@@ -43,6 +54,6 @@ public class Letter_Combinations_of_a_Phone_Number {
     }
 
     public static void main(String[] args){
-        System.out.println(new Letter_Combinations_of_a_Phone_Number().letterCombinations("237"));
+        System.out.println(new Letter_Combinations_of_a_Phone_Number().letterCombinations("23"));
     }
 }

@@ -39,17 +39,17 @@ public class SymmetricTree {
        TreeNode root1 =new TreeNode(1);
        TreeNode root2 =new TreeNode(2);
        TreeNode root3 =new TreeNode(2);
-       TreeNode root4 =new TreeNode(2);
+       TreeNode root4 =new TreeNode(3);
        TreeNode root5 =new TreeNode(4);
-       TreeNode root6 =new TreeNode(2);
+       TreeNode root6 =new TreeNode(4);
        TreeNode root7 =new TreeNode(3);
 
        root1.left=root2;
        root1.right=root3;
-//       root2.left=root4;
-//       root2.right=root5;
-//       root3.left=root6;
-//       root3.right=root7;
+       root2.left=root4;
+       root2.right=root5;
+       root3.left=root6;
+       root3.right=root7;
        System.out.println(new SymmetricTree().isSymmetric(root1));
 
    }

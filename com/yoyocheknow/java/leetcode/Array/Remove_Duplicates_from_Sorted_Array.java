@@ -1,5 +1,7 @@
 package leetcode.Array;
 
+import java.util.Arrays;
+
 /**
  * 从有序数组中删除重复数字
  *

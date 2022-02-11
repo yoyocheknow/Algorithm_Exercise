@@ -65,10 +65,35 @@ public class Unique_Binary_Search_TreesII {
         }
         return result;
     }
+    public List<TreeNode> generateTrees1(int n) {
+        List<TreeNode> ans = BST(1,n);
+        return ans;
+    }
 
+    public List<TreeNode> BST(int start, int end){
+        if(start>end){
+            List<TreeNode> nullList = new ArrayList<>();
+            nullList.add(null);
+            return nullList;
+        }
+        List<TreeNode> ans = new ArrayList<>();
+        for(int i=start;i<=end;i++){
+            List<TreeNode> left = BST(start,i-1);
+            List<TreeNode> right = BST(i+1,end);
+            for(TreeNode l:left){
+                for(TreeNode r:right){
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    ans.add(root);
+                }
+            }
+        }
+        return ans;
+    }
     public static void main(String[] args){
         Unique_Binary_Search_TreesII u= new Unique_Binary_Search_TreesII();
-        List<TreeNode> result = u.generateTrees(4);
+        List<TreeNode> result = u.generateTrees1(4);
         for(int i=0;i<result.size();i++){
             System.out.print(result.get(i).val);
         }

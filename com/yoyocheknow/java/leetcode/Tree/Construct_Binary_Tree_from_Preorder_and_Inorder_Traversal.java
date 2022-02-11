@@ -31,6 +31,7 @@ public class Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
                 return i;
             }
         }
+        Arrays.copyOfRange(inorder,0,1);
         return -1;
     }
 

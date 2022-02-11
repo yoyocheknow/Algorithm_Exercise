@@ -1,5 +1,9 @@
 package leetcode.Array;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
 /**
  * 数组跳跃问题
  *

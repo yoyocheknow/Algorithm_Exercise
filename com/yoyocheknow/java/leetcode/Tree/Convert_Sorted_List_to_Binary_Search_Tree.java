@@ -50,6 +50,27 @@ public class Convert_Sorted_List_to_Binary_Search_Tree {
         return slow;
     }
 
+    public TreeNode sortedListToBST1(ListNode head) {
+        if(head==null){
+            return null;
+        }
+        ListNode fast=head;
+        ListNode slow = head;
+        ListNode dummy = new ListNode();
+        dummy.next=head;
+        ListNode pre = dummy;
+        while(fast!=null && fast.next!=null){
+            fast = fast.next.next;
+            slow=slow.next;
+            pre=pre.next;
+        }
+        pre.next=null;
+        TreeNode root = new TreeNode(slow.val);
+        root.left=sortedListToBST1(dummy.next);
+        root.right=sortedListToBST1(slow.next);
+        return root;
+    }
+
     public static void main(String[] args){
         ListNode l1 = new ListNode(-10);
         ListNode l2 = new ListNode(-3);
@@ -62,7 +83,7 @@ public class Convert_Sorted_List_to_Binary_Search_Tree {
         l3.next=l4;
         l4.next=l5;
 
-        TreeNode root = new Convert_Sorted_List_to_Binary_Search_Tree().sortedListToBST(l1);
+        TreeNode root = new Convert_Sorted_List_to_Binary_Search_Tree().sortedListToBST1(l1);
         Inorder(root);
     }
 
