@@ -18,10 +18,14 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         TreeNode dummy2=root;
         List<TreeNode> pList = new ArrayList<>();
         List<TreeNode> qList = new ArrayList<>();
-        preorder(dummy1,p,pList,new ArrayList<>(),false);
-        preorder(dummy2,q,qList,new ArrayList<>(),false);
+//        dfs(root,p,pList,new ArrayList<>());
+//        dfs(root,q,qList,new ArrayList<>());
+        preorder(root,p,pList,new ArrayList<>(),false);
+        preorder(root,q,qList,new ArrayList<>(),false);
         pList.stream().forEach(item->System.out.print(item.val+" "));
+        System.out.println();
         qList.stream().forEach(item->System.out.print(item.val+" "));
+        System.out.println();
         int left=0;
         int right=0;
         TreeNode resultNode = new TreeNode(0);
@@ -50,6 +54,17 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         }
         preorder(root.left,target,result,path,find);
         preorder(root.right,target,result,path,find);
+        path.remove(path.size()-1);
+    }
+    public void dfs(TreeNode root, TreeNode target,List<TreeNode> result,List<TreeNode> path){
+        if(root==null || root==target){
+            result.addAll(path);
+            return;
+        }
+        path.add(root);
+
+        dfs(root.left,target,result,path);
+        dfs(root.right,target,result,path);
         path.remove(path.size()-1);
     }
 
@@ -90,6 +105,6 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         root5.left=root8;
         root5.right=root9;
         Lowest_Common_Ancestor_of_a_Binary_Tree l= new Lowest_Common_Ancestor_of_a_Binary_Tree();
-        System.out.println(l.lowestCommonAncestor1(root1,root2,root8).val);
+        System.out.println(l.lowestCommonAncestor(root1,root2,root8).val);
     }
 }

@@ -1,9 +1,6 @@
 package leetcode.BackTrack;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -14,33 +11,25 @@ import java.util.stream.Collectors;
 public class CombinationSum {
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        backTrack(0,target,result,new ArrayList<>(),candidates);
-        return result;
-    }
+        Set<List<Integer>> result = new HashSet();
+        backtrack(result,new ArrayList(),candidates,0,target,0);
 
-    public void backTrack(int start,int target,List<List<Integer>> result,List<Integer>temp,int[] candidates){
-        if(getSum(temp)==target){
-            result.add(new ArrayList<>(temp));
+        return new ArrayList(result);
+    }
+    private void backtrack(Set<List<Integer>> result,List<Integer> temp,int[] candidates,int sum, int target,int start){
+        if(sum==target){
+            result.add(new ArrayList(temp));
             return;
         }
-        if(getSum(temp)<target){
-            for(int i=start;i<candidates.length;i++){
-                temp.add(candidates[i]);
-                backTrack(i,target,result,temp,candidates);
-                temp.remove(temp.size()-1);
-            }
+        if(sum>target){
+            return;
         }
-        return;
-
-    }
-
-    public int getSum(List<Integer> temp){
-        int sum =0;
-        for(int i=0;i<temp.size();i++){
-            sum+=temp.get(i);
+        for(int i=start;i<candidates.length;i++){
+            temp.add(candidates[i]);
+            backtrack(result,temp,candidates,sum+candidates[i],target,i);
+            temp.remove(temp.size()-1);
         }
-        return sum;
+
     }
 
     public static void main(String[] args){

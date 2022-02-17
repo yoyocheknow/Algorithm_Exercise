@@ -39,6 +39,6 @@ public class Combinations {
 
     public static void main(String[] args){
         Combinations c = new Combinations();
-        System.out.println(c.combine(3,2).toString());
+        System.out.println(c.combine(3,3).toString());
     }
 }

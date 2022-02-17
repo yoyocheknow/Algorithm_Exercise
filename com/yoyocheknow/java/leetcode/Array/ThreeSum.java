@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class ThreeSum {
 
-    public static List<List<Integer>> threeSum2(int[] nums) {
+    public static List<List<Integer>> threeSum2(int[] nums,int target) {
         Set<List<Integer>> result = new HashSet<>();
         if(nums.length<3){
             return new ArrayList();
@@ -40,12 +40,12 @@ public class ThreeSum {
     }
 
 
-    public static List<List<Integer>> threeSum(int[] nums) {
+    public static List<List<Integer>> threeSum(int[] nums,int target) {
         Set<List<Integer>> result =new HashSet<>();
         Arrays.sort(nums);
 
         for(int i=0;i<nums.length;i++){
-            int sum = 0-nums[i];
+            int sum = target-nums[i];
             HashMap<Integer, Integer> map = new HashMap();
 
             for(int j =i+1;j<nums.length;j++){
@@ -62,7 +62,7 @@ public class ThreeSum {
 
     }
 
-    public static List<List<Integer>> threeSum1(int[] nums) {
+    public static List<List<Integer>> threeSum1(int[] nums,int target) {
         Set<List<Integer>> result =new HashSet<>();
         Arrays.sort(nums);
 
@@ -71,11 +71,11 @@ public class ThreeSum {
             int right =nums.length-1;
 
             while(left<right){
-                if(nums[i]+nums[left]+nums[right]==0){
+                if(nums[i]+nums[left]+nums[right]==target){
                     result.add(Arrays.asList(nums[i],nums[left],nums[right]));
                     left++;
                 }
-                else if(nums[i]+nums[left]+nums[right]<0){
+                else if(nums[i]+nums[left]+nums[right]<target){
                    left++;
                 }else{
                     right--;
@@ -86,8 +86,8 @@ public class ThreeSum {
 
     }
     public static void main(String[] args){
-        int[] nums = new int[]{-1,0,1,2,-1,-4};
-        List<List<Integer>> result = threeSum2(nums);
+        int[] nums = new int[]{-4,-2,-1,0,2,4,5};
+        List<List<Integer>> result = threeSum1(nums,3);
         result.stream().forEach(System.out::println);
     }
 }

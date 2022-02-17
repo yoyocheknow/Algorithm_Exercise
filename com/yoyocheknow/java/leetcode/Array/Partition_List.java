@@ -2,6 +2,8 @@ package leetcode.Array;
 
 import dataStructure.ListNode;
 
+import java.lang.reflect.Array;
+
 /**
  * 分离链表,小于X的放在大于等于X的前面
  *
@@ -31,6 +33,30 @@ public class Partition_List {
         return before_head.next;
     }
 
+    public ListNode partition1(ListNode head, int x){
+        if(head==null){
+            return null;
+        }
+
+        ListNode lessNode=new ListNode();
+        ListNode dummy =lessNode;
+        ListNode moreNode = new ListNode();
+        ListNode dummy1 =moreNode;
+        ListNode cur = head;
+        while(cur!=null){
+            if(cur.val<x){
+                lessNode.next=cur;
+                lessNode = lessNode.next;
+            }else{
+                moreNode.next=cur;
+                moreNode = moreNode.next;
+            }
+            cur=cur.next;
+        }
+        moreNode.next=null;
+        lessNode.next=dummy1.next;
+        return dummy.next;
+    }
     public static void main(String[] args){
         ListNode l1 = new ListNode(1);
         ListNode l2 = new ListNode(4);
@@ -45,8 +71,7 @@ public class Partition_List {
         l3.next=l4;
         l4.next=l5;
         l5.next=l6;
-
-        ListNode result = new Partition_List().partition(l1,3);
+        ListNode result = new Partition_List().partition1(l1,3);
         while (result!=null){
             System.out.print(result.val + " ");
             result = result.next;

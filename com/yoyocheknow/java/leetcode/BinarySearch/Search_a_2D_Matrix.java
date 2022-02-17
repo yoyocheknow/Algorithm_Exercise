@@ -29,7 +29,7 @@ public class Search_a_2D_Matrix {
                 right = colMid-1;
             }else if(matrix[row][colMid]<target && matrix[row][right]<target){
                 if(row<=bottom){
-                    row = ++top;
+                    row = top+1;
                 }else{
                     left = colMid+1;
                 }
@@ -41,8 +41,25 @@ public class Search_a_2D_Matrix {
         return false;
     }
 
+    public boolean searchMatrix1(int[][] matrix, int target) {
+        int i=0;
+        int j=matrix[0].length-1;
+        while(i<matrix.length && j>=0){
+            if(matrix[i][j]==target ){
+                return  true;
+            }
+            if(matrix[i][j]>target){
+                j--;
+            }
+            else{
+                i++;
+            }
+
+        }
+        return false;
+    }
     public static void main(String[] args){
-        int[][] matrix = new int[][]{{1},{3}};
-        System.out.print(new Search_a_2D_Matrix().searchMatrix(matrix,3));
+        int[][] matrix = new int[][]{{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+        System.out.print(new Search_a_2D_Matrix().searchMatrix1(matrix,3));
     }
 }
