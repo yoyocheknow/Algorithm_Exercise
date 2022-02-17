@@ -18,7 +18,7 @@ public class LFUCache {
         }
         @Override
         public String toString() {
-            return "Node{" +
+            return "{" +
                     "key=" + key +
                     ", frequency=" + frequency +
                     '}';
@@ -58,18 +58,21 @@ public class LFUCache {
             node.value=value;
             freqPlus(node);
         }else{
-            eliminate();
             Node newNode = new Node(key,value,0);
             map.put(key,newNode);
             size++;
-
+            if(size>capacity){
+                eliminate();
+            }
             //新数据插入末尾
             Node tailPre = tail.pre;
             tail.pre=newNode;
             newNode.pre=tailPre;
-            newNode.next=newNode;
+            tailPre.next=newNode;
+            newNode.next=tail;
             freqPlus(newNode);
         }
+
     }
     //给当前节点的频率加1，并调整在链表中的顺序
     private void freqPlus(Node node){
@@ -79,13 +82,15 @@ public class LFUCache {
         while(pre!=null){
             //找到比当前节点频率大的节点，然后插入，并相应调整顺序
            if(pre.frequency>freq || pre==head){
-               node.pre.next=pre.next;
+               node.pre.next=node.next;
                node.next.pre=node.pre;
+
                Node next = pre.next;
                pre.next=node;
-               next.pre=node;
                node.next=next;
+
                node.pre=pre;
+               next.pre=node;
                break;
            }
            pre=pre.pre;
@@ -107,16 +112,44 @@ public class LFUCache {
     }
 
     public static void main(String[] args){
-        LFUCache lfUCache = new LFUCache(3);
-        lfUCache.put(2,2);
-        lfUCache.put(1, 1);
-        System.out.println(lfUCache.toString());
-        lfUCache.put(3, 3);
-        System.out.println(lfUCache.toString());
-        lfUCache.put(4, 4);
-        System.out.println(lfUCache.toString());
-        lfUCache.get(1);
-        System.out.println(lfUCache.toString());
+
+        LFUCache lfu = new LFUCache(2);
+        lfu.put(3, 1);
+        // cache=[1,_], cnt(1)=1
+        lfu.print();
+        lfu.put(2, 1);
+        lfu.print();
+        lfu.put(2, 2);// cache=[2,1], cnt(2)=1, cnt(1)=1
+        lfu.print();
+        lfu.put(4, 4);
+        lfu.print();
+        lfu.get(2);
+        System.out.println(lfu);
+//        lfu.get(1);      // return 1
+//        System.out.println(lfu);
+//        // cache=[1,2], cnt(2)=1, cnt(1)=2
+//        lfu.put(3, 3);   // 2 is the LFU key because cnt(2)=1 is the smallest, invalidate 2.
+//        System.out.println(lfu);
+//        // cache=[3,1], cnt(3)=1, cnt(1)=2
+//        lfu.get(2);      // return -1 (not found)
+//        lfu.get(3);      // return 3
+//        // cache=[3,1], cnt(3)=2, cnt(1)=2
+//        lfu.put(4, 4);   // Both 1 and 3 have the same cnt, but 1 is LRU, invalidate 1.
+//        // cache=[4,3], cnt(4)=1, cnt(3)=2
+//        lfu.get(1);      // return -1 (not found)
+//        lfu.get(3);      // return 3
+//        // cache=[3,4], cnt(4)=1, cnt(3)=3
+//        lfu.get(4);      // return 4
+        // cache=[4,3], cnt(4)=2, cnt(3)=3
+    }
+    public void print(){
+        System.out.print(head.value+" ");
+        Node cur=head;
+        while (cur.next!=tail){
+            System.out.print(cur.next.key+" ");
+            cur=cur.next;
+        }
+        System.out.println();
     }
     @Override
     public String toString() {
